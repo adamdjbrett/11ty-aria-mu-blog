@@ -1,0 +1,13 @@
+{
+  "name": "eleventy-aria-mu-blog",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@11ty/eleventy": "3.1.2"
+  },
+  "scripts": {
+    "dev": "eleventy --serve",
+    "build": "eleventy"
+  }
+}

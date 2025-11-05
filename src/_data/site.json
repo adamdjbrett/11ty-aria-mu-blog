@@ -1,0 +1,8 @@
+{
+  "title": "My Arial/MU 11ty Blog",
+  "description": "A minimal Eleventy 3.1.2 blog using MU CSS with Arial Black for headings and Arial for body.",
+  "author": {
+    "name": "Your Name",
+    "url": "https://example.com"
+  }
+}

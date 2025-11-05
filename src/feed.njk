@@ -1,0 +1,21 @@
+---
+permalink: /feed.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+  <channel>
+    <title>{{ site.title }}</title>
+    <link>{{ site.author.url }}</link>
+    <description>{{ site.description }}</description>
+    {% for post in collections.posts | reverse %}
+    <item>
+      <title>{{ post.data.title }}</title>
+      <link>{{ post.url | url }}</link>
+      <pubDate>{{ post.date | date("EEE, dd LLL yyyy HH:mm:ss xx") }}</pubDate>
+      <description><![CDATA[{{ post.templateContent | safe }}]]></description>
+      <guid>{{ post.url | url }}</guid>
+    </item>
+    {% endfor %}
+  </channel>
+</rss>

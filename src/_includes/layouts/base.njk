@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ title or site.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="{{ site.description }}">
+    <link rel="stylesheet" href="https://unpkg.com/@bafs/mu@0.3/mu.min.css" />
+    <style>
+      /* Font stack overrides */
+      html, body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        /* Prefer Arial Black for headings, fall back to Arial */
+        font-family: "Arial Black", Arial, Helvetica, sans-serif;
+        font-weight: 900;
+        letter-spacing: 0.2px;
+        line-height: 1.2;
+      }
+      /* small refinements */
+      header.site-header {
+        margin-block: 2rem 1.5rem;
+        border-bottom: 1px solid currentColor;
+        padding-bottom: 0.75rem;
+      }
+      .post-list {
+        list-style: none;
+        padding: 0;
+      }
+      .post-list li + li {
+        margin-top: 1rem;
+      }
+      .post-meta {
+        opacity: 0.7;
+        font-size: 0.95rem;
+      }
+      footer.site-footer {
+        margin-top: 3rem;
+        padding-top: 1rem;
+        border-top: 1px solid currentColor;
+        font-size: 0.9rem;
+        opacity: 0.75;
+      }
+      .container {
+        max-width: 70ch;
+        margin-inline: auto;
+        padding: 1rem;
+      }
+      .nav a { text-decoration: none; }
+      .nav a + a { margin-left: 1rem; }
+      pre, code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="site-header">
+        <h1 class="no-margin"><a href="/">{{ site.title }}</a></h1>
+        <p class="post-meta">{{ site.description }}</p>
+        <nav class="nav">
+          <a href="/">Home</a>
+          <a href="/posts/">Posts</a>
+          <a href="/about/">About</a>
+          <a href="/feed.xml">RSS</a>
+        </nav>
+      </header>
+
+      <main>
+        {{ content | safe }}
+      </main>
+
+      <footer class="site-footer">
+        <p>&copy; {% year %} {{ site.author.name }}</p>
+      </footer>
+    </div>
+  </body>
+</html>
