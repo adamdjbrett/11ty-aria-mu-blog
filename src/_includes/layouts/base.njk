@@ -7,54 +7,134 @@
     <meta name="description" content="{{ site.description }}">
     <link rel="stylesheet" href="https://unpkg.com/@bafs/mu@0.3/mu.min.css" />
     <style>
-      /* Font stack overrides */
+      /* Dark mode variables */
+      :root {
+        --bg-color: #ffffff;
+        --text-color: #000000;
+        --border-color: #000000;
+        --tag-bg: #f0f0f0;
+        --tag-color: #000000;
+      }
+
+      [data-theme="dark"] {
+        --bg-color: #1a1a1a;
+        --text-color: #e0e0e0;
+        --border-color: #e0e0e0;
+        --tag-bg: #2a2a2a;
+        --tag-color: #e0e0e0;
+      }
+
       html, body {
         font-family: Arial, Helvetica, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        transition: background-color 0.3s ease, color 0.3s ease;
       }
+
       h1, h2, h3, h4, h5, h6 {
-        /* Prefer Arial Black for headings, fall back to Arial */
         font-family: "Arial Black", Arial, Helvetica, sans-serif;
         font-weight: 900;
         letter-spacing: 0.2px;
         line-height: 1.2;
       }
-      /* small refinements */
+
+      a {
+        color: var(--text-color);
+      }
+
       header.site-header {
         margin-block: 2rem 1.5rem;
-        border-bottom: 1px solid currentColor;
+        border-bottom: 1px solid var(--border-color);
         padding-bottom: 0.75rem;
+        position: relative;
       }
+
+      .dark-mode-toggle {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: none;
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        font-size: 0.9rem;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+      }
+
+      .dark-mode-toggle:hover {
+        opacity: 0.7;
+      }
+
       .post-list {
         list-style: none;
         padding: 0;
       }
+
       .post-list li + li {
         margin-top: 1rem;
       }
+
       .post-meta {
         opacity: 0.7;
         font-size: 0.95rem;
       }
+
+      .post-tags {
+        margin-top: 0.5rem;
+      }
+
+      .tag {
+        display: inline-block;
+        background: var(--tag-bg);
+        color: var(--tag-color);
+        padding: 0.25rem 0.75rem;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: opacity 0.2s ease;
+      }
+
+      .tag:hover {
+        opacity: 0.7;
+      }
+
       footer.site-footer {
         margin-top: 3rem;
         padding-top: 1rem;
-        border-top: 1px solid currentColor;
+        border-top: 1px solid var(--border-color);
         font-size: 0.9rem;
         opacity: 0.75;
       }
+
       .container {
         max-width: 70ch;
         margin-inline: auto;
         padding: 1rem;
       }
-      .nav a { text-decoration: none; }
-      .nav a + a { margin-left: 1rem; }
-      pre, code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+      .nav a {
+        text-decoration: none;
+      }
+
+      .nav a + a {
+        margin-left: 1rem;
+      }
+
+      pre, code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <header class="site-header">
+        <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
+          <span id="darkModeIcon">☀️</span>
+        </button>
         <h1 class="no-margin"><a href="/">{{ site.title }}</a></h1>
         <p class="post-meta">{{ site.description }}</p>
         <nav class="nav">
@@ -73,5 +153,24 @@
         <p>&copy; {% year %} {{ site.author.name }}</p>
       </footer>
     </div>
+
+    <script>
+      const darkModeToggle = document.getElementById('darkModeToggle');
+      const darkModeIcon = document.getElementById('darkModeIcon');
+      const html = document.documentElement;
+
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      html.setAttribute('data-theme', savedTheme);
+      darkModeIcon.textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+
+      darkModeToggle.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        darkModeIcon.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+      });
+    </script>
   </body>
 </html>

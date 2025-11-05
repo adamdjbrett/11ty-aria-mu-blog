@@ -7,6 +7,15 @@ layout: layouts/base.njk
     <p class="post-meta">
       <time datetime="{{ page.date | date('yyyy-LL-dd') }}">{{ page.date | date("MMMM d, yyyy") }}</time>
     </p>
+    {% if tags %}
+    <p class="post-tags">
+      {% for tag in tags %}
+        {% if tag != "posts" %}
+          <a href="/tags/{{ tag | slugify }}/" class="tag">#{{ tag }}</a>
+        {% endif %}
+      {% endfor %}
+    </p>
+    {% endif %}
   </header>
   <section class="flow">
     {{ content | safe }}
